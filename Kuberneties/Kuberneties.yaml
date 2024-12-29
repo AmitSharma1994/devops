@@ -35,3 +35,44 @@ contexts:
     namespace: your-namespace
   name: your-context-name
 current-context: your-context-name
+
+#If you have multiple clusters, you can manage them all within a single kubeconfig file by defining multiple clusters, users, and contexts. Each context will correspond to a different cluster and user combination, allowing you to switch between them easily by use contexts.
+#Two clusters (cluster1 and cluster2) are defined.Two users (user1 and user2) are defined.Two contexts (context1 and context2) are defined, each linking a cluster with a user and a namespace.You can switch between these contexts using:
+
+apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    server: https://cluster1-server
+    certificate-authority: /path/to/cluster1-ca.crt
+  name: cluster1
+- cluster:
+    server: https://cluster2-server
+    certificate-authority: /path/to/cluster2-ca.crt
+  name: cluster2
+users:
+- name: user1
+  user:
+    client-certificate: /path/to/user1-client.crt
+    client-key: /path/to/user1-client.key
+- name: user2
+  user:
+    client-certificate: /path/to/user2-client.crt
+    client-key: /path/to/user2-client.key
+contexts:
+- context:
+    cluster: cluster1
+    user: user1
+    namespace: namespace1
+  name: context1
+- context:
+    cluster: cluster2
+    user: user2
+    namespace: namespace2
+  name: context2
+current-context: context1
+In this example:
+
+
+kubectl config use-context context1
+kubectl config use-context context2
