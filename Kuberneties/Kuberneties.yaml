@@ -71,7 +71,6 @@ contexts:
     namespace: namespace2
   name: context2
 current-context: context1
-In this example:
 
 
 kubectl config use-context context1
